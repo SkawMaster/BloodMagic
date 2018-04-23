@@ -1,16 +1,16 @@
 package WayofTime.bloodmagic.item;
 
 import WayofTime.bloodmagic.ConfigHandler;
-import WayofTime.bloodmagic.util.PleaseStopUsingMe;
-import WayofTime.bloodmagic.util.Constants;
+import WayofTime.bloodmagic.client.IMeshProvider;
+import WayofTime.bloodmagic.core.RegistrarBloodMagicItems;
 import WayofTime.bloodmagic.event.SacrificeKnifeUsedEvent;
+import WayofTime.bloodmagic.item.types.ISubItem;
+import WayofTime.bloodmagic.tile.TileAltar;
+import WayofTime.bloodmagic.util.Constants;
+import WayofTime.bloodmagic.util.DamageSourceBloodMagic;
 import WayofTime.bloodmagic.util.helper.NBTHelper;
 import WayofTime.bloodmagic.util.helper.PlayerHelper;
 import WayofTime.bloodmagic.util.helper.PlayerSacrificeHelper;
-import WayofTime.bloodmagic.client.IMeshProvider;
-import WayofTime.bloodmagic.core.RegistrarBloodMagicItems;
-import WayofTime.bloodmagic.item.types.ISubItem;
-import WayofTime.bloodmagic.tile.TileAltar;
 import WayofTime.bloodmagic.util.helper.TextHelper;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -30,10 +30,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.function.Consumer;
 
 public class ItemSacrificialDagger extends ItemEnum<ItemSacrificialDagger.DaggerType> implements IMeshProvider {
 
@@ -97,10 +97,10 @@ public class ItemSacrificialDagger extends ItemEnum<ItemSacrificialDagger.Dagger
 
             if (evt.shouldDrainHealth) {
                 player.hurtResistantTime = 0;
-                player.attackEntityFrom(PleaseStopUsingMe.damageSource, 0.001F);
+                player.attackEntityFrom(DamageSourceBloodMagic.INSTANCE, 0.001F);
                 player.setHealth(Math.max(player.getHealth() - 2, 0.0001f));
                 if (player.getHealth() <= 0.001f) {
-                    player.onDeath(PleaseStopUsingMe.damageSource);
+                    player.onDeath(DamageSourceBloodMagic.INSTANCE);
                     player.setHealth(0);
                 }
 //                player.attackEntityFrom(BloodMagicAPI.getDamageSource(), 2.0F);
@@ -165,12 +165,10 @@ public class ItemSacrificialDagger extends ItemEnum<ItemSacrificialDagger.Dagger
     }
 
     @Override
-    public List<String> getVariants() {
-        List<String> variants = new ArrayList<>();
-        variants.add("type=normal");
-        variants.add("type=creative");
-        variants.add("type=ceremonial");
-        return variants;
+    public void gatherVariants(Consumer<String> variants) {
+        variants.accept("type=normal");
+        variants.accept("type=creative");
+        variants.accept("type=ceremonial");
     }
 
     public enum DaggerType implements ISubItem {

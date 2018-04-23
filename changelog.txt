@@ -1,11 +1,51 @@
 ------------------------------------------------------
+Version 2.2.10
+------------------------------------------------------
+- Fixed Turret Array crash on servers.
+- Fixed the Blood Altar so it can actually fill Blood Orbs (derp).
+
+------------------------------------------------------
+Version 2.2.9
+------------------------------------------------------
+- Fixed stupid NPE in the Furnace Array
+- Fixed various issues with the Alchemy Table:
+	- Now works for recipes that require an LP cost.
+	- Hoppers no longer lose items when items are placed into the "slave" Alchemy Table who has some slots restricted.
+- Added an entry to the book that explains you can, in fact, use Sea Lanterns instead of glowstone blocks for your Tier 3 altar.
+- Fixed the Demon Will crystals growing when they shouldn't. Also lowered the time between natural crystal growths in Will-enriched areas.
+	- Side note: who's bright idea was it to have to wait 15 minutes per crystal growth?
+- Added the "Resonance of the Faceted Crystal", which can be used to create your first aspected Will crystal clusters.
+- Made it so the Crystallizer no longer generates a random aspected Will crystal cluster.
+- Fixed rare crash with the Blood Altar, which only has a chance of occuring on restart.
+
+------------------------------------------------------
 Version 2.2.8
 ------------------------------------------------------
 - Fixed a client side null-pointer exception with the Blood Lamp
 	- It's a bright idea to fix this as soon as I can.
 - Changed the recipe of the Teleport Array:
 	- Note from Scotty: Captain, I'll remind ya what happened last time you put an apple in her array! Use an Enderpearl and redstone dust next time!
+- Added new arrays
+	- The Turret Array:
+		> Place an array on top of an inventory with arrows and then place a bow and an arrow in the array. The array will target enemies greater than 3 blocks away and less than 32, using any arrows in the inventory.
+	- Spike Array:
+		> Place a piece of cobblestone and iron ingot in the array. The array deals damage to any living entity that enters
 - Increased the max number of items transferable by the Master Routing Node in its system to 64 per second. Will revisit this limit if I figure out a less silly upgrade system.
+- Added additional effects to the Sentient Bow when aspected to different Will types.
+- Added in book entries for the Teleport Array and the Turret Array.
+- Fixed the Haste sigil and "Quick Feet" so that they work with MC's new movement method.
+- Removed added health from "Quick Feet" - seriously, why was this a thing?
+- Readded the ritual "Focus of the Ellipsoid": creates a hollow ellipsoid from blocks provided in the connecting chest.
+	- Note: The dictionary definition for "Ellipsoid" is a three-dimensional figure whose plane sections are ellipses or circles. For those who weren't born in a math class, it means it is a sphere that has different radii in each direction.
+- Fixed an off by one in altar upgrade management causing the first of any upgrade to not be counted
+- Fixed the LP cost of the Master Blood Orb
+    - This bug has gone unnoticed for 2 years now.
+- Potion Flasks can be crafted now
+- Fixed a server crash when handling dye recipes
+- Moved several text outputs out of the chat and into the action bar
+- Fixed a crash when trying to use unbound toggle-able sigils in the Sigil of Holding
+- Fixed an issue where unbound sigils could be used inside the Sigil of Holding
+- Added missing items for Demon Crystals and Demon Pylons
 
 ------------------------------------------------------
 Version 2.2.7

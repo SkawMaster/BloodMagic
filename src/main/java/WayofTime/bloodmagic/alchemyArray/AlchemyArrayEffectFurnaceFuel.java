@@ -2,6 +2,7 @@ package WayofTime.bloodmagic.alchemyArray;
 
 import java.util.List;
 
+import WayofTime.bloodmagic.util.DamageSourceBloodMagic;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFurnace;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,7 +16,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import WayofTime.bloodmagic.util.PleaseStopUsingMe;
 
 public class AlchemyArrayEffectFurnaceFuel extends AlchemyArrayEffect
 {
@@ -62,12 +62,17 @@ public class AlchemyArrayEffectFurnaceFuel extends AlchemyArrayEffect
                         }
                     }
 
+                    if (sacrifice == null || sacrifice.isDead)
+                    {
+                        return false;
+                    }
+
                     if (addFuelTime(furnaceTile, world, furnacePos, burnTicksAdded))
                     {
                         if (!sacrifice.capabilities.isCreativeMode)
                         {
                             sacrifice.hurtResistantTime = 0;
-                            sacrifice.attackEntityFrom(PleaseStopUsingMe.damageSource, 1.0F); //No.
+                            sacrifice.attackEntityFrom(DamageSourceBloodMagic.INSTANCE, 1.0F); //No.
                         }
                     }
                 }

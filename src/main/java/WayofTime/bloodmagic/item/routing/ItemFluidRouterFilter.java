@@ -7,6 +7,7 @@ import WayofTime.bloodmagic.routing.IFluidFilter;
 import WayofTime.bloodmagic.routing.RoutingFluidFilter;
 import WayofTime.bloodmagic.util.GhostItemHelper;
 import WayofTime.bloodmagic.util.helper.TextHelper;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -17,9 +18,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.Pair;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +52,7 @@ public class ItemFluidRouterFilter extends Item implements IFluidFilterProvider,
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag flag) {
-        tooltip.add(TextHelper.localize("tooltip.BloodMagic.fluidFilter." + names[stack.getItemDamage()]));
+        tooltip.add(TextHelper.localize("tooltip.bloodmagic.fluidFilter." + names[stack.getItemDamage()]));
 
         super.addInformation(stack, world, tooltip, flag);
     }
@@ -89,8 +89,7 @@ public class ItemFluidRouterFilter extends Item implements IFluidFilterProvider,
 
     @Override
     public IFluidFilter getOutputFluidFilter(ItemStack filterStack, TileEntity tile, IFluidHandler handler) {
-        IFluidFilter testFilter = new RoutingFluidFilter();
-
+        IFluidFilter testFilter;
         switch (filterStack.getMetadata()) {
             case 0:
                 testFilter = new RoutingFluidFilter();
@@ -104,7 +103,7 @@ public class ItemFluidRouterFilter extends Item implements IFluidFilterProvider,
         ItemInventory inv = new ItemInventory(filterStack, 9, ""); //TODO: Change to grab the filter from the Item later.
         for (int i = 0; i < inv.getSizeInventory(); i++) {
             ItemStack stack = inv.getStackInSlot(i);
-            if (stack == null) {
+            if (stack.isEmpty()) {
                 continue;
             }
 
@@ -121,10 +120,8 @@ public class ItemFluidRouterFilter extends Item implements IFluidFilterProvider,
     }
 
     @Override
-    public List<Pair<Integer, String>> getVariants() {
-        List<Pair<Integer, String>> ret = new ArrayList<>();
-        ret.add(new ImmutablePair<>(0, "type=exact"));
-        return ret;
+    public void gatherVariants(@Nonnull Int2ObjectMap<String> variants) {
+        variants.put(0, "type=exact");
     }
 
     @Override
